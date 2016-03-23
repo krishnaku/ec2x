@@ -108,6 +108,7 @@ setup(
     entry_points={
         'console_scripts': [
             'bind_ec2_names=aws.scripts:rebind_ec2_names',
+            'ec2_ssh=aws.scripts:ssh',
         ],
     },
 )
