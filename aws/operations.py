@@ -1,6 +1,6 @@
 import boto3
+
 import name_binding
-import os
 
 
 class NoSuchInstance(Exception):
@@ -35,17 +35,24 @@ class _ec2:
     def state(self):
         return self.instance.state['Name']
 
+    @property
+    def host_name(self):
+        return 'ec2-user@' + self.instance.public_dns_name
 
-def find_ec2_instance(instance_id, ec2=None):
+
+def find_ec2_instance(instance_name, ec2=None):
     if ec2 is None:
         ec2 = boto3.resource('ec2')
-    for result in ec2.instances.filter(InstanceIds=[instance_id]):
+    for result in ec2.instances.filter(Filters=[{
+        'Name': 'tag:Name',
+        'Values': [instance_name]
+    }]):
         return _ec2(result)
-    raise NoSuchInstance("Instance Id: " + instance_id)
+    raise NoSuchInstance("Instance Id: " + instance_name)
 
 
-def running(instance_id, ec2=None):
-    with find_ec2_instance(instance_id, ec2) as wrapped:
+def running(instance_name, ec2=None):
+    with find_ec2_instance(instance_name, ec2) as wrapped:
         rebind = False
         if wrapped.state in ['shutting-down', 'terminated']:
             raise IllegalState('Instance is ' + wrapped.state)
@@ -64,6 +71,3 @@ def running(instance_id, ec2=None):
 
     return wrapped
 
-
-with running('i-05bbd8ea9905f3aa5') as wrap:
-    print wrap.instance.public_dns_name + os.environ['euler_id']
