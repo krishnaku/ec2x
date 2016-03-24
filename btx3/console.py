@@ -6,7 +6,9 @@ from fabric.tasks import execute
 
 
 def rehash():
-    """Update the cached binding of instance names to instance_id and public_dns_names"""
+    """Update the binding of instance names to instance_id and public_dns_names
+    and also update the name_binding cache.
+    """
     name_binding.export_name_bindings_to_file()
 
 
@@ -24,11 +26,25 @@ def ssh(instance_name):
 def remote(instance_name, *command):
     """Execute a remote ssh command on the named instance
 
-    Example: btx remote <instance_name> ps ax | grep foo
+    Examples:
+        btx remote <instance_name> ps ax
+        :show the processes running on the remote instance <instance>
+
+        btx remote <instance_name> \"ps ax | grep ssh\"
+        :run the piped command sequence on the remote instance
     """
     execute(tasks.remote_run,
             _concat(command),
             instance_name)
+
+
+@arg('command', help='commmand to be executed')
+def local(*command):
+    """Execute a local command with the ec2 name bindings in the environment
+
+    Example: btx local echo "The public dns name of the instance named euler is " $euler
+    """
+    tasks.local(_concat(command))
 
 
 def _concat(command):
@@ -40,6 +56,7 @@ def __main__():
         [
             ssh,
             remote,
+            local,
             rehash
 
         ])
