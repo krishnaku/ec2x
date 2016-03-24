@@ -10,6 +10,8 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
+import btx3
+
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
@@ -17,15 +19,15 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='mypy_utils',
+    name='btx3',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.1',
+    version=btx3.__version__,
 
-    description='Miscelleneous utilities for dev work',
-    long_description=long_description,
+    description='High level Boto3 (AWS) Wrapper to reduce friction during development work ',
+    long_description="Unsupported Alpha version. Caveat Emptor!",
 
     # The project's main homepage.
     url='https://github.com/pypa/sampleproject',
@@ -52,19 +54,13 @@ setup(
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
 
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 2',
+        # Due to the dependency on fabric.
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
     ],
 
     # What does your project relate to?
-    keywords='sample setuptools development',
+    keywords='development aws boto3',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -78,7 +74,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['boto3', 'gitpython', 'fabric'],
+    install_requires=['boto3', 'fabric', 'argh'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
@@ -93,7 +89,7 @@ setup(
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        'aws': [],
+        'btx3': [],
     },
 
     # Although 'package_data' is the preferred approach, in some case you may
@@ -107,8 +103,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'bind_ec2_names=aws.scripts:rebind_ec2_names',
-            'ec2_ssh=aws.scripts:ssh',
+            'btx=btx3.console:__main__',
         ],
     },
 )
