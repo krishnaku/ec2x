@@ -1,7 +1,9 @@
 EC2x: Work with EC2 Instances by Name
 =====================================
 
-Do you regularly work with more than one EC2 instance for your dev and test work? EC2x lets you give each one a name you can remember.
+Do you regularly work with more than one EC2 instance for your dev and test work? EC2x lets you give each one a name you can remember
+and use these instead of AWS ids or public dns names.
+
 For example, instead of dealing with ids like ``i-05bbd8ea9905f3aa5`` or having to  type ::
 
     ssh ec2-user\@ec2-52-38-22-116.us-west-2.compute.amazonaws.com
