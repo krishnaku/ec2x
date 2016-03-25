@@ -42,10 +42,11 @@ and still maintain stable local environments without using up a bunch of elastic
 Installation
 ============
 
-Using pip::
+Using pip ::
+
     Check out this repository and then
 
-    $ pip install -e .
+        $ pip install -e .
 
 
 Usage and Examples
@@ -53,7 +54,7 @@ Usage and Examples
 
 The utilities in this library are intended to be used side by side with the AWS CLI, so we assume you have the CLI installed
 and have the necessary access to an AWS account where the EC2 instances are running. Please see the `AWS CLI documentation <https://aws.amazon.com/cli/>`_ for setup and usage.
-We will assume you are able to access your aws account using the CLI and have run `aws configure` to set up your keys and defaults, and can ssh into your instances using their public dns names.
+We will assume you are able to access your aws account using the CLI and have run ``aws configure`` to set up your keys and defaults, and can ssh into your instances using their public dns names.
 
 We will also assume you have given your instance a user friendly name using the *Name* tag (provided as an argument to the *run-instance* CLI command or via the AWS admin console).
 
