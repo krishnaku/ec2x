@@ -16,7 +16,7 @@ def rehash():
 def ssh(instance_name):
     """ssh into a remote ec2 instance by name.
 
-    Example: btx ssh <instance_name>
+    Example: ec2x ssh <instance_name>
     """
     execute(tasks.ssh, instance_name)
 
@@ -27,10 +27,10 @@ def remote(instance_name, *command):
     """Execute a remote ssh command on the named instance
 
     Examples:
-        btx remote <instance_name> ps ax
+        ec2x remote <instance_name> ps ax
         :show the processes running on the remote instance <instance>
 
-        btx remote <instance_name> \"ps ax | grep ssh\"
+        ec2x remote <instance_name> \"ps ax | grep ssh\"
         :run the piped command sequence on the remote instance
     """
     execute(tasks.remote_run,
@@ -42,7 +42,7 @@ def remote(instance_name, *command):
 def local(*command):
     """Execute a local command with the ec2 name bindings in the environment
 
-    Example: btx local echo "The public dns name of the instance named euler is " $euler
+    Example: ec2x local echo "The public dns name of the instance named euler is " $euler
     """
     tasks.local(_concat(command))
 
