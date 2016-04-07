@@ -70,6 +70,9 @@ setup(
     # this:
     #   py_modules=["my_module"],
 
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
+
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
@@ -82,7 +85,7 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': ['check-manifest'],
-        'test': ['coverage', 'specter'],
+        'test': ['coverage', 'pytest', 'mock'],
     },
 
     # If there are data files included in your packages that need to be
