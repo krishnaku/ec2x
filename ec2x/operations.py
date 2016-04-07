@@ -40,9 +40,8 @@ class _ec2:
         return 'ec2-user@' + self.instance.public_dns_name
 
 
-def find_ec2_instance(instance_name, ec2=None):
-    if ec2 is None:
-        ec2 = boto3.resource('ec2')
+def find_ec2_instance(instance_name):
+    ec2 = boto3.resource('ec2')
     for result in ec2.instances.filter(Filters=[{
         'Name': 'tag:Name',
         'Values': [instance_name]
@@ -51,8 +50,8 @@ def find_ec2_instance(instance_name, ec2=None):
     raise NoSuchInstance("Instance Id: " + instance_name)
 
 
-def running(instance_name, ec2=None):
-    with find_ec2_instance(instance_name, ec2) as wrapped:
+def running(instance_name):
+    with find_ec2_instance(instance_name) as wrapped:
         rebind = False
         if wrapped.state in ['shutting-down', 'terminated']:
             raise IllegalState('Instance is ' + wrapped.state)
@@ -64,10 +63,10 @@ def running(instance_name, ec2=None):
             wrapped.instance.start()
             rebind = True
         wrapped.instance.wait_until_running()
-        name_binding.export_name_bindings_to_environment(ec2)
+        name_binding.export_name_bindings_to_environment()
         if rebind:
             print "Rebinding all names"
-            name_binding.export_name_bindings_to_file(ec2)
+            name_binding.export_name_bindings_to_file()
 
     return wrapped
 
