@@ -52,21 +52,17 @@ def find_ec2_instance(instance_name):
 
 def running(instance_name):
     with find_ec2_instance(instance_name) as wrapped:
-        rebind = False
         if wrapped.state in ['shutting-down', 'terminated']:
             raise IllegalState('Instance is ' + wrapped.state)
         if wrapped.state in ['stopping', 'stopped']:
             print 'Waiting for instance to stop...'
             wrapped.instance.wait_until_stopped()
+            wrapped.instance.start()
         if wrapped.state not in ['pending', 'running']:
             print 'Starting instance...'
             wrapped.instance.start()
-            rebind = True
         wrapped.instance.wait_until_running()
-        name_binding.export_name_bindings_to_environment()
-        if rebind:
-            print "Rebinding all names"
-            name_binding.export_name_bindings_to_file()
+        name_binding.rebind_all()
 
     return wrapped
 
