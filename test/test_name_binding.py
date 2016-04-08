@@ -1,11 +1,10 @@
-from mock import patch
-from ec2x.name_binding import *
-from pytest import fixture
-
-from test_helpers import *
 import os
 
+from mock import patch
+
+from ec2x.name_binding import *
 from ec2x.name_binding import _open_aws_env_file, AWS_CONFIG_DIR
+from test_helpers import *
 
 
 # Test ec2_instance_attributes
@@ -212,8 +211,6 @@ class rebind_all_tests:
 
 
 # _open_aws_env_file
-
-
 class _open_aws_env_file_tests:
     @patch('os.path.exists', return_value=False)
     def it_creates_the_environment_directory_if_it_does_not_exist(self, os_path_exists_ignored):
