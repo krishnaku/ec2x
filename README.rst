@@ -46,7 +46,7 @@ Using pip ::
 
     Check out this repository and then
 
-        $ pip install -e .
+        $ pip install -r requirements.txt .
 
 
 Usage and Examples
@@ -76,14 +76,20 @@ This package installs a command line script ``ec2x`` that supports the following
     ``ec2x rehash`` writes a file named `name_bindings` to ~/.aws and you can use it to cache the bindings created by ``ec2x local``
     and source it (from .bashrc etc.) so that you have them available in your current working shell.
 
+If you set up an alias in your bash_profile file like so: ``alias ec2x_init='ec2x rehash && source ~/.ec2x/name_bindings'``
+You can then simply run ``ec2x_init`` from your shell and this will set up your environment by updating against the current state of your EC2 instances.
+
+
 
 
 Caveats
 =======
 
-This is an alpha release. Currently ``rehash`` will work only the bash shell. Needs tests etc..
+This is an alpha release suitable only for development environments. Currently ``rehash`` will work only the bash shell. The local install should be stable, but the docker install is a
+work in progress. Several key workflows such as SSH dont really translate well to running inside a container at the moment.
 Tested mainly against my dev environment which has about 5 instances, not optimized for large installs.
 In general, Caveat Emptor.
+
 
 
 
