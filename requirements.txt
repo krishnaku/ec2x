@@ -1,0 +1,6 @@
+argh==0.26.2
+boto3==1.3.1
+Fabric3==1.11.1.post1
+pytest_runner
+pytest
+mock

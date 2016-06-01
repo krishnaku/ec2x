@@ -54,9 +54,9 @@ setup(
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
 
-        # Due to the dependency on fabric.
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
+
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
 
     # What does your project relate to?
@@ -77,7 +77,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['boto3', 'fabric', 'argh'],
+    install_requires=['boto3', 'fabric3', 'argh'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,

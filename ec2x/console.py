@@ -1,8 +1,8 @@
-import name_binding
-import tasks
+from . import name_binding, tasks
 import argh
 from argh.decorators import arg
 from fabric.tasks import execute
+from functools import reduce
 
 
 def rehash():

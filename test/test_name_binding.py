@@ -117,7 +117,7 @@ class get_ec2_name_bindings_tests:
 
             expect = name_binding_mappings_example['expect']
 
-            for k, v in expect.iteritems():
+            for k, v in iter(expect.items()):
                 assert k in result and result[k] == v
 
 
@@ -193,7 +193,7 @@ class export_name_bindings_to_environment_tests:
                    return_value=name_binding_exports_example['input']) as get_ec2_name_bindings_method:
             export_name_bindings_to_environment()
 
-            for k, v in name_binding_exports_example['input'].iteritems():
+            for k, v in iter(name_binding_exports_example['input'].items()):
                 assert k in os.environ and os.environ[k] == v
 
 
@@ -201,13 +201,15 @@ class export_name_bindings_to_environment_tests:
 class rebind_all_tests:
     def it_calls_export_name_bindings_to_file(self):
         with patch('ec2x.name_binding.export_name_bindings_to_file') as mock:
-            rebind_all()
-            assert mock.called
+            with patch('ec2x.name_binding.export_name_bindings_to_environment') as ignore:
+                rebind_all()
+                assert mock.called
 
     def it_calls_export_name_bindings_to_environment(self):
         with patch('ec2x.name_binding.export_name_bindings_to_environment') as mock:
-            rebind_all()
-            assert mock.called
+            with patch('ec2x.name_binding.export_name_bindings_to_file') as ignore:
+                rebind_all()
+                assert mock.called
 
 
 # _open_aws_env_file
@@ -215,13 +217,14 @@ class _open_aws_env_file_tests:
     @patch('os.path.exists', return_value=False)
     def it_creates_the_environment_directory_if_it_does_not_exist(self, os_path_exists_ignored):
         with patch('os.mkdir') as os_mkdir:
-            _open_aws_env_file('w')
-            os_mkdir.assert_called_with(AWS_CONFIG_DIR)
+            with patch('builtins.open') as ignore:
+                _open_aws_env_file('w')
+                os_mkdir.assert_called_with(AWS_CONFIG_DIR)
 
     @patch('os.path.exists', return_value=True)
     @patch('os.mkdir')
     def it_opens_the_config_file_with_the_mode_specified(self, os_mkdir, os_path_exists_ignored):
-        with patch('__builtin__.open', return_value=StringIO()) as _open:
+        with patch('builtins.open', return_value=StringIO()) as _open:
             _open_aws_env_file('w')
 
             _open.assert_called_with(AWS_CONFIG_FILE, 'w')

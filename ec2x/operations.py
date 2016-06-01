@@ -1,6 +1,6 @@
 import boto3
 
-import name_binding
+from . import name_binding
 
 
 class NoSuchInstance(Exception):
@@ -55,11 +55,11 @@ def running(instance_name):
         if wrapped.state in ['shutting-down', 'terminated']:
             raise IllegalState('Instance is ' + wrapped.state)
         if wrapped.state in ['stopping', 'stopped']:
-            print 'Waiting for instance to stop...'
+            print('Waiting for instance to stop...')
             wrapped.instance.wait_until_stopped()
             wrapped.instance.start()
         if wrapped.state not in ['pending', 'running']:
-            print 'Starting instance...'
+            print('Starting instance...')
             wrapped.instance.start()
         wrapped.instance.wait_until_running()
         name_binding.rebind_all()

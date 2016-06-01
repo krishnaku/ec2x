@@ -1,7 +1,7 @@
 from mock import MagicMock
 from pytest import fixture
 
-from StringIO import StringIO
+from io import StringIO
 
 
 def mock_ec2_instance(name, state='stopped', **kwargs):
