@@ -15,7 +15,7 @@ __all__ = [
 # Constants
 
 # Locations
-AWS_CONFIG_DIR = os.path.expanduser('~/.aws')
+AWS_CONFIG_DIR = os.path.expanduser('~/.ec2x')
 AWS_CONFIG_FILE = os.path.expanduser(AWS_CONFIG_DIR + '/name_bindings')
 
 
