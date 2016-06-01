@@ -46,7 +46,7 @@ def export_name_bindings_to_file():
     with _open_aws_env_file('w') as name_binding:
         _write_file_header(name_binding)
         for key, value in sorted(iter(get_ec2_name_bindings().items())):
-            name_binding.write('export ' + key + '=' + value + '\n')
+            name_binding.write('export ' + key.replace('-', '_') + '=' + value + '\n')
 
 
 def export_name_bindings_to_environment():
