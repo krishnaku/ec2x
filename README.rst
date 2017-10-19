@@ -88,7 +88,8 @@ Caveats
 This is an alpha release suitable only for development environments. Currently ``rehash`` will work only the bash shell. The local install should be stable, but the docker install is a
 work in progress. Several key workflows such as SSH dont really translate well to running inside a container at the moment.
 Tested mainly against my dev environment which has about 5 instances, not optimized for large installs.
-In general, Caveat Emptor.
+In general, Caveat Emptor. You have been warned. 
+
 
 
 
