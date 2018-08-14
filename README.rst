@@ -99,7 +99,7 @@ Author
 Krishna Kumar
 
 License
-=======
+==========
 
 MIT License
 Copyright
